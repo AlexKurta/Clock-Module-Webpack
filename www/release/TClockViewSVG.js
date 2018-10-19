@@ -1,4 +1,4 @@
-class ViewSVG {
+export class ViewSVG {
     constructor(root) {
         this.root = root;
         this.wrapper = null;                       
