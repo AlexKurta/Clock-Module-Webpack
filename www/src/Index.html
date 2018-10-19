@@ -1,120 +1,45 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="icon" href="favicon.png" type="image/png">
-        <title>Проект Clock_SVG</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;                
-            }          
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"-->
+  <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script-->
+  <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script-->
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link href="styles.css" rel="stylesheet">
+  <title>Example</title>
+</head>
+<body>
+  <svg width="600" height="170" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+                <rect x=20 y=40 width=30 height=20 fill=yellow stroke=green stroke-width=2 />
             
-        </style>
-    </head>
-    <body> 
-        
-        <svg id="svg"></svg>
-     
-        <script>
-            'use strict';
-            var svg = document.getElementById('svg'),
-                watchFace = document.createElementNS("http://www.w3.org/2000/svg",'circle');
-            svg.setAttribute('width', 400);
-            svg.setAttribute('height', 400);
-            svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');                      
-            watchFace.setAttribute('cx', 200);
-            watchFace.setAttribute('cy', 200);
-            watchFace.setAttribute('r', 150);            
-            watchFace.setAttribute('fill', '#fcca66');          
-            svg.appendChild(watchFace);
+                <path id='PPP1' d='M 200 20 q 80 -50, 300 70' stroke=red fill=none />
             
-            var coord = watchFace.getBoundingClientRect();
-            for (let i = 12; i >= 1; i--) {
-                let digit = document.createElementNS("http://www.w3.org/2000/svg",'circle'),
-                    text = document.createElementNS("http://www.w3.org/2000/svg",'text'),
-                    cx = coord.left + coord.width/2 + (coord.width/2 - 30) * Math.sin(Math.PI * i / 6),
-                    cy = coord.top + coord.width/2 - (coord.width/2 - 30) * Math.cos(Math.PI * i / 6);
-                digit.setAttribute('cx', cx);
-                digit.setAttribute('cy', cy);
-                digit.setAttribute('r', 20);            
-                digit.setAttribute('fill', '#48b382'); 
-                text.textContent = i;
-                text.setAttribute('x', cx);
-                text.setAttribute('y', cy + 5);
-                text.setAttribute('text-anchor', 'middle');
-                svg.appendChild(digit);
-                svg.appendChild(text);
-            }
-
-            for (let i = 1; i <= 5; i++) {
-                let clock = document.createElementNS("http://www.w3.org/2000/svg",'text'),
-                    cx = coord.width/2 + i * 20 - 8,
-                    cy = coord.width/2;                
-                clock.setAttribute('text-anchor', 'middle');
-                clock.setAttribute('x', cx);
-                clock.setAttribute('y', cy + 5);                
-                clock.setAttribute('font-size', 30);
-                if (i % 2) {
-                    clock.textContent = '00';
-                    clock.setAttribute('class', 'clock');
-                } else {
-                    clock.textContent = ':';
-                }
-                svg.appendChild(clock);
-            }
-
-            for (let i = 1; i <= 3; i++) {
-                let clockhands = document.createElementNS("http://www.w3.org/2000/svg",'line');
-                clockhands.setAttribute('x1', coord.left + coord.width/2);
-                clockhands.setAttribute('y1', coord.top + coord.width/2);
-                clockhands.setAttribute('x2', coord.left + coord.width/2);
-                clockhands.setAttribute('y2', coord.top + coord.width/2 - 20 * i - 50);
-                clockhands.setAttribute('stroke', 'black');
-                clockhands.setAttribute('stroke-width', 10 - 2 * i);
-                clockhands.setAttribute('stroke-linecap', 'round');
-                clockhands.setAttribute('stroke-opacity', 0.7);
-                clockhands.setAttribute('id', `clockhands${i}`);
-                svg.appendChild(clockhands);
-
-
-            }
-
-            function update() {
-                let digitalClock = document.getElementsByClassName('clock'),                
-                    date = new Date(),
-                    rotateX =  coord.left + coord.width/2,
-                    rotateY =  coord.top + coord.width/2,                             
-                    clockHandsSec = document.getElementById('clockhands3'),                    
-                    clockHandsMin = document.getElementById('clockhands2'),
-                    clockHandsHour = document.getElementById('clockhands1'),
-                    hours = date.getHours(),
-                    degreeHour = 30*(date.getHours() + (1/60)*date.getMinutes()),
-                    minutes = date.getMinutes(),
-                    degreeMin = 6*(date.getMinutes() + (1/60)*date.getSeconds()),
-                    seconds = date.getSeconds(),
-                    degreeSec = 6*date.getSeconds();
-                
-                if (hours < 10) hours = '0' + hours;
-                digitalClock[0].textContent = hours;
-                clockHandsHour.setAttribute('transform', `rotate(${degreeHour} ${rotateX} ${rotateY})`);
-                
-                if (minutes < 10) minutes = '0' + minutes;
-                digitalClock[1].textContent = minutes;
-                clockHandsMin.setAttribute('transform', `rotate(${degreeMin} ${rotateX} ${rotateY})`);
-                 
-                if (seconds < 10) seconds = '0' + seconds;
-                digitalClock[2].textContent = seconds;
-                clockHandsSec.setAttribute('transform', `rotate(${degreeSec} ${rotateX} ${rotateY})`);
-            }
-
-                function clockStart() {
-                setInterval(update, 1000);
-                update(); 
-            }
-
-            clockStart();  
-
-        </script>
-    </body>
+                <!-- у rect НЕ задаём атрибуты x и y, иначе прямоугольник сместится относительно кривой -->
+                <rect width=30 height=20  fill=yellow stroke=green stroke-width=2>
+                    <animateMotion dur=3s repeatCount=indefinite>
+                        <mpath xlink:href="#PPP1"/>
+                    </animateMotion>
+                </rect>
+            
+                <path id='PPP2' d='M 200 60 q 80 -50, 300 70' stroke=red fill=none />
+            
+                <!-- у rect НЕ задаём атрибуты x и y, иначе прямоугольник сместится относительно кривой -->
+                <rect width=30 height=20 y=-10 fill=yellow stroke=green stroke-width=2>
+                    <animateMotion dur=3s repeatCount=indefinite rotate=auto>
+                        <mpath xlink:href="#PPP2"/>
+                    </animateMotion>
+                </rect>
+            
+            </svg>   
+  <script src="scripts.js"></script>
+</body>
 </html>
