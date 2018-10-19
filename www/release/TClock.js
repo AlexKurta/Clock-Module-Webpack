@@ -1,6 +1,6 @@
 export class Model {
     constructor(timezone) {
-        this.timezone = timezone; // TODO: добавить зоны
+        this.timezone = timezone; 
         this.changeListener = null;        
                 // модель предоставляет поле date для чтения извне
         this.hours = new Date(Date.now() + (this.timezone - 3) * 3600000).getHours();
