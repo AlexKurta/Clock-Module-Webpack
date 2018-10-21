@@ -7,7 +7,9 @@
     "start": "concurrently \"node app.js\" \"gulp watch\"",
     "pack": "gulp pack",
     "start-prod": "gulp pack && PORT=3001 node app.js",
-    "html-lint": "gulp html-lint || true"
+    "html-lint": "gulp html-lint || true",
+    "build": "webpack -p",
+    "watch": "webpack --watch"
   },
   "author": "",
   "license": "ISC",
