@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Проект Clock_MVC</title>     
-    <style>
-        a {
-            color: black;
-            text-decoration: none;
-        }         
-    </style>
+    <title>Проект Clock_MVC</title> 
+    <style>        
+        .wrapper {
+            float: left;
+            margin: 5px;
+        }        
+    </style>   
 </head>
-<body>
-        <div id='id'></div>
-        <a href="#clock1">Лондон</a>
-        <a href="#clock2">Нью-Йорк</a>
-        <a href="#clock3">Берлин</a>
-        <a href="#clock4">Минск</a>
-        <a href="#clock5">Токио</a>
-        <a href="#clock6">Владивосток</a>
-        <script type="module">
-            import "./TClockRouter.js";      
-        </script>    
+<body>        
+    <script type="module">
+        import "./dist/bundle.js";      
+    </script>    
 </body>
 </html>
